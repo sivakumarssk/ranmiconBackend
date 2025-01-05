@@ -1,6 +1,6 @@
 import { useState } from "react"
 import '../components/home/Main.css';
-import Virtual from "../components/guidelines/virtual";
+import Virtual from "../components/guidelines/Virtual";
 import Speaker from "../components/guidelines/Speaker";
 import Poster from "../components/guidelines/Poster";
 import Chair from "../components/guidelines/Chair";
