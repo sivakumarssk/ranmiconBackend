@@ -1,0 +1,162 @@
+/* File: Home.css */
+
+/* Main container for the Home component */
+.mainCon {
+    max-width: 900px;
+    /* margin: 20px auto; */
+    margin-block: 6%;
+    margin-left: 5%;
+    /* width: 700px; */
+
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+/* Form container */
+.formCom {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Labels */
+.formCom label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input fields and textareas */
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea,
+select {
+    max-width: 100%;
+    width: 750px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Button styles */
+button {
+    margin-block: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Error text */
+.errorText,
+.error {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: -10px;
+}
+
+/* Lists */
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+ul li {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Section titles */
+h3 {
+    color: #4CAF50;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+/* Quill rich text editor */
+.textEdit {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Select dropdown */
+select {
+    background-color: #fff;
+    font-size: 14px;
+}
+
+/* Custom styles for tables in Schedule and Passes */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+/* Section-specific enhancements */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .mainCon {
+        padding: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+    }
+
+    input,
+    textarea,
+    select {
+        font-size: 12px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+}

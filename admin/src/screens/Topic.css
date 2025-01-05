@@ -1,0 +1,95 @@
+/* File: Home.css */
+
+.mainCon {
+    max-width: 900px;
+    /* margin: 20px auto; */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4CAF50;
+}
+
+h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.formCom {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.formCom input {
+    max-width: 100%;
+    /* width: 150px; */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+button {
+
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.delete-button {
+    margin-left: 10px;
+    background-color: #f44336;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f;
+}
+
+.errorText {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: -10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}

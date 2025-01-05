@@ -1,0 +1,376 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './Plans.css';
+
+const Plans = () => {
+    const [plans, setPlans] = useState([]);
+    const [participationTypes, setParticipationTypes] = useState([]);
+    const [accommodationTypes, setAccommodationTypes] = useState([]);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [newPlan, setNewPlan] = useState({
+        name: '',
+        startDate: '',
+        endDate: '',
+        prices: [],
+        accommodationPrices: [],
+    });
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingPlanId, setEditingPlanId] = useState(null);
+    const [newParticipationType, setNewParticipationType] = useState('');
+    const [newAccommodationType, setNewAccommodationType] = useState('');
+
+    // Fetch plans, participants, and accommodations
+    const fetchData = async () => {
+        try {
+            const plansResponse = await axios.get('https://admin.emdcconference.com/api/getPlans');
+            const participationResponse = await axios.get('https://admin.emdcconference.com/api/getparticipation');
+            // const accommodationResponse = await axios.get('https://admin.emdcconference.com/api/accommodations');
+
+            setPlans(plansResponse.data);
+            // console.log(participationResponse.data,'res');
+            
+            const participants = participationResponse.data.filter(item => item.participants).flatMap(item => item.participants);
+            const accommodations = participationResponse.data.filter(item => item.accommodations).flatMap(item => item.accommodations);
+    
+            setParticipationTypes(participants || []);
+            setAccommodationTypes(accommodations || []);
+
+        } catch (err) {
+            setError('Failed to fetch data');
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    // Handle creating or updating a plan
+    const handleCreateOrUpdatePlan = async () => {
+        try {
+            const pricesArray = newPlan.prices
+                .filter((each) => each.participationType) // Ensure participationType is defined
+                .map((each) => ({
+                    participationType: each.participationType,
+                    price: parseFloat(each.price),
+                }));
+    
+            const accommodationPricesArray = newPlan.accommodationPrices
+                .filter((each) => each.accommodationType) // Ensure accommodationType is defined
+                .map((each) => ({
+                    accommodationType: each.accommodationType,
+                    price: parseFloat(each.price),
+                }));
+    
+            // console.log(pricesArray, accommodationPricesArray);
+    
+            if (isEditing) {
+                const response = await axios.put('https://admin.emdcconference.com/api/updatePlan', {
+                    planId: editingPlanId,
+                    name: newPlan.name,
+                    startDate: newPlan.startDate,
+                    endDate: newPlan.endDate,
+                    prices: pricesArray,
+                    accommodationPrices: accommodationPricesArray,
+                });
+                setPlans(plans.map((p) => (p._id === editingPlanId ? response.data : p)));
+                setSuccess('Plan updated successfully');
+            } else {
+                const response = await axios.post('https://admin.emdcconference.com/api/createPlan', {
+                    name: newPlan.name,
+                    startDate: newPlan.startDate,
+                    endDate: newPlan.endDate,
+                    prices: pricesArray,
+                    accommodationPrices: accommodationPricesArray,
+                });
+                setPlans([...plans, response.data]);
+                setSuccess('Plan created successfully');
+            }
+    
+            setNewPlan({ name: '', startDate: '', endDate: '', prices: [], accommodationPrices: [] });
+            setIsEditing(false);
+            setEditingPlanId(null);
+            setError('');
+        } catch (err) {
+            setError('Failed to create or update plan');
+            setSuccess('');
+        }
+    };
+    
+    // Handle editing a plan
+    const handleEditPlan = (plan) => {
+        setIsEditing(true);
+        setEditingPlanId(plan._id);
+
+        setNewPlan({
+            name: plan.name,
+            startDate: plan.startDate,
+            endDate: plan.endDate,
+            prices: plan.prices.map((price) => ({
+                participationType: price.participationType,
+                price: price.price,
+            })),
+            accommodationPrices: plan.accommodationPrices.map((price) => ({
+                accommodationType: price.accommodationType,
+                price: price.price,
+            })),
+        });
+    };
+
+    // Handle deleting a plan
+    const handleDeletePlan = async (planId) => {
+        try {
+            await axios.delete(`https://admin.emdcconference.com/api/deletePlan/${planId}`);
+            setPlans(plans.filter((plan) => plan._id !== planId));
+            setSuccess('Plan deleted successfully');
+        } catch (err) {
+            setError('Failed to delete plan');
+        }
+    };
+
+    // Handle adding a participant
+    const handleAddParticipant = async () => {
+        try {
+            const response = await axios.post('https://admin.emdcconference.com/api/addParticipant', {
+                name: newParticipationType,
+            });
+            
+            setParticipationTypes(response.data.participants);
+            setNewParticipationType('');
+            setSuccess('Participant added successfully');
+        } catch (err) {
+            setError('Failed to add participant');
+        }
+    };
+
+    // Handle deleting a participant
+    const handleDeleteParticipant = async (id) => {
+        try {
+            await axios.delete(`https://admin.emdcconference.com/api/deleteParticipation/${id}`);
+            setParticipationTypes(participationTypes.filter((type) => type._id !== id));
+            setSuccess('Participant deleted successfully');
+        } catch (err) {
+            setError('Failed to delete participant');
+        }
+    };
+
+    // Handle adding an accommodation
+    const handleAddAccommodation = async () => {
+        try {
+            const response = await axios.post('https://admin.emdcconference.com/api/addAccommodation', {
+                name: newAccommodationType,
+            });
+            // console.log(response,'accres');
+            
+            setAccommodationTypes(response.data.accommodations);
+            setNewAccommodationType('');
+            setSuccess('Accommodation added successfully');
+        } catch (err) {
+            setError('Failed to add accommodation');
+        }
+    };
+
+    // Handle deleting an accommodation
+    const handleDeleteAccommodation = async (id) => {
+        try {
+            await axios.delete(`https://admin.emdcconference.com/api/deleteAccommodation/${id}`);
+            setAccommodationTypes(accommodationTypes.filter((type) => type._id !== id));
+            setSuccess('Accommodation deleted successfully');
+        } catch (err) {
+            setError('Failed to delete accommodation');
+        }
+    };
+
+    
+
+    const renderPriceInputs = (types, typeKey, keyName) =>{
+        // console.log(newPlan,'newpl');
+
+        return types.map((type) => (
+            <div key={type._id} className="price-input">
+                
+                <label>{type.name}:</label>
+                <input
+                    type="number"
+                    placeholder="Price"
+                    value={
+                        newPlan[typeKey].find((each) => each[keyName] === type._id)?.price || ''
+                    }
+                    onChange={(e) => {
+                        const value = parseFloat(e.target.value) || null;
+                        setNewPlan((prev) => ({
+                            ...prev,
+                            [typeKey]: [
+                                ...prev[typeKey].filter((each) => each[keyName] !== type._id),
+                                { [keyName]: type._id, price: value },
+                            ],
+                        }));
+                    }}
+                />
+            </div>
+        ));
+    }
+
+
+        
+
+    return (
+        <div className="admin-panel">
+            <h1>Admin Panel</h1>
+            {error && <p className="error-message">{error}</p>}
+            {success && <p className="success-message">{success}</p>}
+
+            {/* Plan Management Section */}
+            <section>
+                <h2>Plans</h2>
+                <table className="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Prices</th>
+                            <th>Accommodation Prices</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {plans.map((plan) => (
+                            <tr key={plan._id}>
+                                <td>{plan.name}</td>
+                                <td>{plan.startDate?.split('T')[0]}</td>
+                                <td>{plan.endDate?.split('T')[0]}</td>
+                                <td>
+                                    {participationTypes.map((pt) => {
+                                        const priceObj = plan.prices.find(
+                                            (p) => p.participationType === pt._id
+                                        );
+                                        return (
+                                            <p key={pt._id}>
+                                                {pt.name}: {priceObj?.price || 'N/A'}
+                                            </p>
+                                        );
+                                    })}
+                                </td>
+                                <td>
+                                    {accommodationTypes.map((at) => {
+                                        const priceObj = plan.accommodationPrices.find(
+                                            (p) => p.accommodationType === at._id
+                                        );
+                                        return (
+                                            <p key={at._id}>
+                                                {at.name}: {priceObj?.price || 'N/A'}
+                                            </p>
+                                        );
+                                    })}
+                                </td>
+                                <td>
+                                    <button onClick={() => handleEditPlan(plan)}>Edit</button>
+                                    <button onClick={() => handleDeletePlan(plan._id)}>Delete</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+                <h3>{isEditing ? 'Edit Plan' : 'Create New Plan'}</h3>
+                <input
+                    type="text"
+                    placeholder="Plan Name"
+                    value={newPlan.name}
+                    onChange={(e) => setNewPlan({ ...newPlan, name: e.target.value })}
+                />
+                <input
+                    type="date"
+                    placeholder="Start Date"
+                    value={newPlan.startDate?.split('T')[0]}
+                    onChange={(e) => setNewPlan({ ...newPlan, startDate: e.target.value })}
+                />
+                <input
+                    type="date"
+                    placeholder="End Date"
+                    value={newPlan.endDate?.split('T')[0]}
+                    onChange={(e) => setNewPlan({ ...newPlan, endDate: e.target.value })}
+                />
+
+                <h4>Set Participant Prices</h4>
+                {renderPriceInputs(participationTypes, 'prices', 'participationType')}
+
+                <h4>Set Accommodation Prices</h4>
+                {renderPriceInputs(accommodationTypes, 'accommodationPrices', 'accommodationType')}
+
+                <button onClick={handleCreateOrUpdatePlan}>
+                    {isEditing ? 'Update Plan' : 'Create Plan'}
+                </button>
+            </section>
+
+            {/* Participant Management Section */}
+            <section>
+                <h2>Participants</h2>
+                <table className="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {participationTypes.map((type) => (
+                            <tr key={type._id}>
+                                <td>{type.name}</td>
+                                <td>
+                                    <button onClick={() => handleDeleteParticipant(type._id)}>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <h3>Create New Participant</h3>
+                <input
+                    type="text"
+                    placeholder="Participant Name"
+                    value={newParticipationType}
+                    onChange={(e) => setNewParticipationType(e.target.value)}
+                />
+                <button onClick={handleAddParticipant}>Add Participant</button>
+            </section>
+
+            {/* Accommodation Management Section */}
+            <section>
+                <h2>Accommodations</h2>
+                <table className="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {accommodationTypes.map((type) => (
+                            <tr key={type._id}>
+                                <td>{type.name}</td>
+                                <td>
+                                    <button onClick={() => handleDeleteAccommodation(type._id)}>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <h3>Create New Accommodation</h3>
+                <input
+                    type="text"
+                    placeholder="Accommodation Name"
+                    value={newAccommodationType}
+                    onChange={(e) => setNewAccommodationType(e.target.value)}
+                />
+                <button onClick={handleAddAccommodation}>Add Accommodation</button>
+            </section>
+        </div>
+    );
+};
+
+// export default Plans;

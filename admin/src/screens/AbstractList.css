@@ -1,0 +1,66 @@
+/* File: AbstractList.css */
+
+.abstract-container {
+    max-width:100%;
+    margin-block: 6%;
+    margin-left: 15%;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: #f44336;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.abstract-table {
+    max-width: 100%;
+    width: 900px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.abstract-table th,
+.abstract-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.abstract-table th {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.abstract-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.abstract-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.abstract-table a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.abstract-table a:hover {
+    text-decoration: underline;
+}
