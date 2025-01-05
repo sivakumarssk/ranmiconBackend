@@ -16,7 +16,7 @@ import Plans from './screens/Plans'
 import Accommodations from './screens/Accommodations'
 import Guidelines from './screens/Guidelines'
 import RegistrationList from './screens/RegistrationList'
-import Policy from './screens/policy'
+import Policy from './screens/Policy'
 
 function App() {
 
