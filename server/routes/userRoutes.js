@@ -34,7 +34,9 @@ const guidelineController = require('../controlers/guidelinesController');
 const {
     registerUserAndInitiatePayment,
     handleWebhook,
-    getRegistrations
+    getRegistrations,
+    createPayPalOrder,
+    capturePayPalOrder
   } = require('../controlers/patmentController');
 const { getPrivacy, getTermsConditions, getCancellation, createPrivacy, createTermsConditions, createCancellation } = require('../controlers/policyController');
 
@@ -98,7 +100,7 @@ router.patch('/:section', async (req, res) => {
 
     // Map sections to schema fields
     const sectionMap = {
-        main: ['backgroundImage', 'conferenceHead', 'conferencedate', 'conferencepalce'],
+        main: ['backgroundImage','logo','email', 'conferenceHead','conferenceHead2', 'conferencedate', 'conferencepalce'],
         about: ['aboutHeading', 'aboutDes', 'aboutImage1', 'aboutImage2'],
         topics: ['topicsList1', 'topicsList2', 'topicsList3'],
         schedule: ['day1', 'day2', 'day3'],
@@ -620,12 +622,16 @@ router.post('/guide-speaker', guidelineController.createSpeaker);
 router.post('/guide-poster', guidelineController.createPoster);
 router.post('/guide-chair', guidelineController.createChair);
 router.post('/guide-virtual', guidelineController.createVirtual);
+router.post('/guide-abstract', guidelineController.createAbstract);
+router.post('/guide-plans', guidelineController.createPlans);
 
 // GET endpoints
 router.get('/guide-speaker', guidelineController.getSpeaker);
 router.get('/guide-poster', guidelineController.getPoster);
 router.get('/guide-chair', guidelineController.getChair);
 router.get('/guide-virtual', guidelineController.getVirtual);
+router.get('/guide-abstract', guidelineController.getAbstract);
+router.get('/guide-plans', guidelineController.getPlans);
 
 
 router.post('/privacy', createPrivacy);
@@ -639,5 +645,8 @@ router.get('/cancellation',getCancellation);
 router.post("/register-and-pay", registerUserAndInitiatePayment);
 router.post("/webhook", express.raw({ type: "application/json" }), handleWebhook);
 router.get("/registrations", getRegistrations);
+
+router.post("/create-paypal-order",createPayPalOrder)
+router.post("/capture-paypal-order",capturePayPalOrder)
 
 module.exports = router 

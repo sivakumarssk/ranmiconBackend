@@ -1,4 +1,6 @@
 const User = require("../models/paymentDetials");
+const paypal = require("@paypal/checkout-server-sdk");
+const { client } = require("./paypalClient");
 
 const stripe = require("stripe")("sk_test_51NI3kpSJK88knjYmgPqeGGvdfE37E7Qb8yoW7XwWEWwDQfsIukzIwSfQIOmiI52mFsKhQF3xa4tqX9nFvBE6ETSB001a4muj5o"); // Replace with your secret key
 
@@ -115,8 +117,76 @@ const getRegistrations = async (req, res) => {
   }
 };
 
+
+const createPayPalOrder = async (req, res) => {
+  try {
+    const { formData, selectedPlan, selectedAccommodations, totalPrice } = req.body;
+
+    
+    // Save user data with payment status as 'pending'
+    const newUser = new User({
+      ...formData,
+      selectedPlan: {
+        planId: selectedPlan.planId,
+        planName: selectedPlan.planName,
+        participantType: selectedPlan.participantType,
+        price: selectedPlan.price,
+      },
+      accommodations: selectedAccommodations || [],
+      payment: {
+        status: "pending",
+      },
+    });
+
+    const savedUser = await newUser.save();
+
+    const request = new paypal.orders.OrdersCreateRequest();
+      request.prefer("return=representation")
+  request.requestBody({
+      intent: "CAPTURE",
+      purchase_units: [
+        {
+          amount: {
+            currency_code: "EUR",
+            value: totalPrice, // Total amount
+          },
+          description: "Conference Plan and Accommodations",
+        },
+      ],
+    });
+
+    const order = await client().execute(request);
+    res.json({ orderID: order.result.id });
+  } catch (error) {
+    console.error("Error creating PayPal order:", error.message);
+    res.status(500).send("Failed to create PayPal order.");
+  }
+};
+
+const capturePayPalOrder = async (req, res) => {
+  try {
+    const { orderID } = req.body;
+
+    const capture = await client.orders.capture(orderID);
+    if (capture.status === "COMPLETED") {
+      // Save the payment details to the database
+      // Update the user/payment record as needed
+      res.json({ success: true });
+    } else {
+      res.json({ success: false });
+    }
+  } catch (error) {
+    console.error("Error capturing PayPal order:", error.message);
+    res.status(500).send("Failed to capture PayPal order.");
+  }
+};
+
+
+
 module.exports ={
   handleWebhook,
   registerUserAndInitiatePayment,
-  getRegistrations
+  getRegistrations,
+  createPayPalOrder,
+  capturePayPalOrder
 }

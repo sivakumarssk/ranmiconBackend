@@ -6,6 +6,8 @@ const GuidelineSchema = new mongoose.Schema({
     poster: { type: String },
     chair: { type: String },
     virtual: { type: String },
+    abstract: { type: String },
+    plans: { type: String },
 });
 
 module.exports = mongoose.model('Guideline', GuidelineSchema);

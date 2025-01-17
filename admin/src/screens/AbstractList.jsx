@@ -55,7 +55,7 @@ const AbstractList = () => {
                                 <td>
                                     {abstract.attachFile ? (
                                         <a
-                                            href={`http://localhost:5000${abstract.attachFile}`}
+                                            href={`https://admin.emdcconference.com${abstract.attachFile}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >

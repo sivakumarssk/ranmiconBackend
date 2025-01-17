@@ -4,8 +4,10 @@ import Virtual from "../components/guidelines/Virtual";
 import Speaker from "../components/guidelines/Speaker";
 import Poster from "../components/guidelines/Poster";
 import Chair from "../components/guidelines/Chair";
+import Abstract from "../components/guidelines/Abstract";
+import Plans from "../components/guidelines/Plans";
 
-const arr =["speaker","poster","chair","virtual"]
+const arr =["speaker","poster","chair","virtual","abstract","plans"]
 
 
 function Guidelines() {
@@ -32,6 +34,8 @@ function Guidelines() {
             {section === 'poster'&& <Poster />}
             {section === 'chair'&& <Chair />}
             {section === 'virtual'&& <Virtual />}
+            {section === 'abstract'&& <Abstract />}
+            {section === 'plans'&& <Plans />}
         </div>
     )
 }

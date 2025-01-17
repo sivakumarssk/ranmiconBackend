@@ -20,7 +20,6 @@ const PaymentDetialsSchema = new mongoose.Schema({
   email: String,
   organization: String,
   phone: String,
-  city: String,
   country: String,
   interestedIn: String,
   address: String,

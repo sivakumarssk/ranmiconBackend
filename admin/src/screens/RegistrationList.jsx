@@ -36,7 +36,6 @@ const RegistrationList = () => {
                                 <th>Phone</th>
                                 <th>Organization/Institution</th>
                                 <th>Interested In</th>
-                                <th>City</th>
                                 <th>Country</th>
                                 <th>Plan</th>
                                 <th>Payment Status</th>
@@ -52,7 +51,6 @@ const RegistrationList = () => {
                                     <td>{registration.phone || 'N/A'}</td>
                                     <td>{registration.organization || 'N/A'}</td>
                                     <td>{registration.interestedIn || 'N/A'}</td>
-                                    <td>{registration.city || 'N/A'}</td>
                                     <td>{registration.country || 'N/A'}</td>
                                     <td>
                                         {registration.selectedPlan

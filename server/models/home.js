@@ -6,7 +6,16 @@ const HomeSchema =new mongoose.Schema({
     backgroundImage:{
         type:String,
     },
+    logo:{
+        type:String,
+    },
+    email:{
+        type:String,
+    },
     conferenceHead:{
+        type:String,
+    },
+    conferenceHead2:{
         type:String,
     },
     conferencedate:{

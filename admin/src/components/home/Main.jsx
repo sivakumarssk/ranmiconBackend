@@ -5,14 +5,20 @@ import ReactQuill from "react-quill";
 function Main() {
     const [mainForm, setMainForm] = useState({
         backgroundImage: null,
+        logo:null,
+        email:"",
         conferenceHead: "",
+        conferenceHead2: "",
         conferencedate: "",
         conferencepalce: ""
     });
 
     const [error, setError] = useState({
         backgroundImage: "",
+        logo:"",
+        email:"",
         conferenceHead: "",
+        conferenceHead2: "",
         conferencedate: "",
         conferencepalce: ""
     });
@@ -68,8 +74,8 @@ function Main() {
 
         if (key === "backgroundImage") {
             setMainForm((prev) => ({ ...prev, [key]: e.target.files[0] })); // Store the File object
-        } else if (key === "conferenceHead") {
-            setMainForm((prev) => ({ ...prev, [key]: e })); // ReactQuill provides HTML
+        }else if (key === "logo") {
+            setMainForm((prev) => ({ ...prev, [key]: e.target.files[0] })); // Store the File object
         } else {
             setMainForm((prev) => ({ ...prev, [key]: e.target.value }));
         }
@@ -86,6 +92,9 @@ function Main() {
                         data.append(key, value);
                     }
                 });
+
+                console.log(data);
+                
 
                 const response = await axios.patch('https://admin.emdcconference.com/api/main', data, {
                     headers: { "Content-Type": "multipart/form-data" }
@@ -114,17 +123,50 @@ function Main() {
                 </div>
 
                 <div className="formCom">
+                    <label>Upload logo :</label>
+                    <input
+                        type="file"
+                        onChange={(e) => handleOnChange(e, "logo")}
+                        required
+                    />
+                    {error.logo && <p className="errorText">{error.logo}</p>}
+                </div>
+
+                <div className="formCom">
+                    <label>Email :</label>
+                    <input
+                        type="text"
+                        placeholder="Enter Email"
+                        value={mainForm.email}
+                        onChange={(e) => handleOnChange(e, "email")}
+                        required
+                    />
+                    {error.email && <p className="errorText">{error.email}</p>}
+                </div>
+
+
+                <div className="formCom">
                     <label>Conference Head :</label>
-                    <ReactQuill
-                     modules={modules}
-                     formats={formats}
-                        className="textEdit"
+                    <input
+                        type="text"
+                        placeholder="Enter Conference Head"
                         value={mainForm.conferenceHead}
                         onChange={(e) => handleOnChange(e, "conferenceHead")}
-                        placeholder="Enter conference Head"
                         required
                     />
                     {error.conferenceHead && <p className="errorText">{error.conferenceHead}</p>}
+                </div>
+
+                <div className="formCom">
+                    <label>Conference Head 2 :</label>
+                    <input
+                        type="text"
+                        placeholder="Enter conference Head 2"
+                        value={mainForm.conferenceHead2}
+                        onChange={(e) => handleOnChange(e, "conferenceHead2")}
+                        required
+                    />
+                    {error.conferenceHead2 && <p className="errorText">{error.conferenceHead2}</p>}
                 </div>
 
                 <div className="formCom">

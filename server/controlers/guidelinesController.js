@@ -39,8 +39,12 @@ module.exports = {
     createPoster: (req, res) => createOrUpdateField(req, res, 'poster'),
     createChair: (req, res) => createOrUpdateField(req, res, 'chair'),
     createVirtual: (req, res) => createOrUpdateField(req, res, 'virtual'),
+    createAbstract: (req, res) => createOrUpdateField(req, res, 'abstract'),
+    createPlans: (req, res) => createOrUpdateField(req, res, 'plans'),
     getSpeaker: (req, res) => getField(req, res, 'speaker'),
     getPoster: (req, res) => getField(req, res, 'poster'),
     getChair: (req, res) => getField(req, res, 'chair'),
     getVirtual: (req, res) => getField(req, res, 'virtual'),
+    getAbstract: (req, res) => getField(req, res, 'abstract'),
+    getPlans: (req, res) => getField(req, res, 'plans'),
 };
