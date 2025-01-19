@@ -167,19 +167,24 @@ const capturePayPalOrder = async (req, res) => {
   try {
     const { orderID } = req.body;
 
-    const capture = await client.orders.capture(orderID);
-    if (capture.status === "COMPLETED") {
-      // Save the payment details to the database
-      // Update the user/payment record as needed
+    const captureRequest = new paypal.orders.OrdersCaptureRequest(orderID);
+    captureRequest.requestBody({}); // Required by the SDK, even if empty
+
+    const capture = await client().execute(captureRequest);
+
+    if (capture.result.status === "COMPLETED") {
+      // Handle successful capture
       res.json({ success: true });
     } else {
-      res.json({ success: false });
+      // Handle unsuccessful capture
+      res.status(400).json({ success: false });
     }
   } catch (error) {
     console.error("Error capturing PayPal order:", error.message);
-    res.status(500).send("Failed to capture PayPal order.");
+    res.status(500).json({ error: "Failed to capture PayPal order." });
   }
 };
+
 
 
 
