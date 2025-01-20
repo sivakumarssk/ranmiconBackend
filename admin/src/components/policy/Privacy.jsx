@@ -72,7 +72,7 @@ function Privacy() {
                     
                     data.append('privacy',mainForm.privacy)
     
-                    const response = await axios.post('https://admin.emdcconference.com/api/privacy', data, {
+                    const response = await axios.post('https://admin.ranmicon.com/api/privacy', data, {
                         headers: { "Content-Type": "multipart/form-data" }
                     });
     

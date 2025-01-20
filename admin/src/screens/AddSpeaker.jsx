@@ -30,13 +30,13 @@ const AddSpeaker = () => {
         let endpoint = '';
         switch (formData.category) {
             case 'speaker':
-                endpoint = 'https://admin.emdcconference.com/api/addSpeaker';
+                endpoint = 'https://admin.ranmicon.com/api/addSpeaker';
                 break;
             case 'keynote':
-                endpoint = 'https://admin.emdcconference.com/api/addKeynoteSpeaker';
+                endpoint = 'https://admin.ranmicon.com/api/addKeynoteSpeaker';
                 break;
             case 'committee':
-                endpoint = 'https://admin.emdcconference.com/api/addCommittee';
+                endpoint = 'https://admin.ranmicon.com/api/addCommittee';
                 break;
             default:
                 break;

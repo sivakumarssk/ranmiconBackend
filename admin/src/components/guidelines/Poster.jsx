@@ -72,7 +72,7 @@ function Poster() {
                    
                    data.append('poster',mainForm.poster)
    
-                   const response = await axios.post('https://admin.emdcconference.com/api/guide-poster', data, {
+                   const response = await axios.post('https://admin.ranmicon.com/api/guide-poster', data, {
                        headers: { "Content-Type": "multipart/form-data" }
                    });
    

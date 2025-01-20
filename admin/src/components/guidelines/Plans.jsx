@@ -72,7 +72,7 @@ function Plans() {
                 
                 data.append('plans',mainForm.plans)
 
-                const response = await axios.post('https://admin.emdcconference.com/api/guide-plans', data, {
+                const response = await axios.post('https://admin.ranmicon.com/api/guide-plans', data, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
 

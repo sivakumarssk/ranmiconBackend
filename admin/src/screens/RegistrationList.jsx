@@ -9,7 +9,7 @@ const RegistrationList = () => {
     // Fetch data from the API
     const fetchRegistrationData = async () => {
         try {
-            const response = await axios.get('https://admin.emdcconference.com/api/registrations'); // Replace with your backend URL
+            const response = await axios.get('https://admin.ranmicon.com/api/registrations'); // Replace with your backend URL
             setRegistrations(response.data || []);
         } catch (error) {
             console.error('Error fetching registration data:', error);

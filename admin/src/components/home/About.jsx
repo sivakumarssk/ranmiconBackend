@@ -59,7 +59,7 @@ function About() {
                     }
                 });
 
-                const response = await axios.patch('https://admin.emdcconference.com/api/about', data, {
+                const response = await axios.patch('https://admin.ranmicon.com/api/about', data, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
 

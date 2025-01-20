@@ -20,7 +20,7 @@ function Topics() {
     // Fetch topics from the server
     const fetchTopics = async () => {
         try {
-            const response = await axios.get("https://admin.emdcconference.com/api/");
+            const response = await axios.get("https://admin.ranmicon.com/api/");
             const { topicsList1, topicsList2, topicsList3 } = response.data;
             setTopics({ topicsList1, topicsList2, topicsList3 });
         } catch (err) {
@@ -44,7 +44,7 @@ function Topics() {
             };
 
             // Submit updated topics to the server
-            const response = await axios.patch("https://admin.emdcconference.com/api/topics", updatedTopics, {
+            const response = await axios.patch("https://admin.ranmicon.com/api/topics", updatedTopics, {
                 headers: { "Content-Type": "application/json" },
             });
 
@@ -61,7 +61,7 @@ function Topics() {
     // Delete a topic from the list
     const handleDeleteTopic = async (listName, topic) => {
         try {
-            const response = await axios.delete(`https://admin.emdcconference.com/api/topics/${listName}/${topic}`);
+            const response = await axios.delete(`https://admin.ranmicon.com/api/topics/${listName}/${topic}`);
 
             if (response.status === 200) {
                 setTopics((prevTopics) => ({

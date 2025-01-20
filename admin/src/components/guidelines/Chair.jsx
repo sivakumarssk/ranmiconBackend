@@ -72,7 +72,7 @@ function Chair() {
                 
                 data.append('chair',mainForm.chair)
 
-                const response = await axios.post('https://admin.emdcconference.com/api/guide-chair', data, {
+                const response = await axios.post('https://admin.ranmicon.com/api/guide-chair', data, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
 

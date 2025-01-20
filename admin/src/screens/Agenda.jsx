@@ -13,7 +13,7 @@ function Agenda() {
   const fetchAgendas = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('https://admin.emdcconference.com/api/getAgenda');
+      const response = await axios.get('https://admin.ranmicon.com/api/getAgenda');
       setAgendas(response.data.agendas);
     } catch (error) {
       console.error(error);
@@ -41,7 +41,7 @@ function Agenda() {
     formData.append('pdfFile', pdfFile);
 
     try {
-      await axios.post('https://admin.emdcconference.com/api/addAgenda', formData);
+      await axios.post('https://admin.ranmicon.com/api/addAgenda', formData);
       setDate('');
       setPdfFile(null);
       fetchAgendas();
@@ -55,7 +55,7 @@ function Agenda() {
   // Delete an agenda by ID
   const handleDeleteAgenda = async (id) => {
     try {
-      await axios.delete(`https://admin.emdcconference.com/api/deleteAgenda/${id}`);
+      await axios.delete(`https://admin.ranmicon.com/api/deleteAgenda/${id}`);
       fetchAgendas();
       alert('Agenda deleted successfully');
     } catch (error) {

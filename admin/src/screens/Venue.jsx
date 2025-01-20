@@ -64,7 +64,7 @@ const Venue = () => {
         if (formData.image3) data.append("image3", formData.image3);
 
         try {
-            const response = await axios.post("https://admin.emdcconference.com/api/addVenue", data, {
+            const response = await axios.post("https://admin.ranmicon.com/api/addVenue", data, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             alert("Venue updated successfully!");

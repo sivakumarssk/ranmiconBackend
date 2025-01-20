@@ -12,7 +12,7 @@ const SpeakerList = () => {
 
     const fetchAllItems = async () => {
         try {
-            const response = await axios.get('https://admin.emdcconference.com/api/getAllSpeakers');
+            const response = await axios.get('https://admin.ranmicon.com/api/getAllSpeakers');
             const { speakers, keynoteSpeakers, committee } = response.data;
 
             // Adding category for each type of item
@@ -31,13 +31,13 @@ const SpeakerList = () => {
         let endpoint = '';
         switch (category) {
             case 'speaker':
-                endpoint = `https://admin.emdcconference.com/api/deleteSpeaker/${id}`;
+                endpoint = `https://admin.ranmicon.com/api/deleteSpeaker/${id}`;
                 break;
             case 'keynote':
-                endpoint = `https://admin.emdcconference.com/api/deleteKeynoteSpeaker/${id}`;
+                endpoint = `https://admin.ranmicon.com/api/deleteKeynoteSpeaker/${id}`;
                 break;
             case 'committee':
-                endpoint = `https://admin.emdcconference.com/api/deleteCommitte/${id}`;
+                endpoint = `https://admin.ranmicon.com/api/deleteCommitte/${id}`;
                 break;
             default:
                 break;

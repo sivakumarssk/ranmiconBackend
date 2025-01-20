@@ -9,7 +9,7 @@ const ContactList = () => {
     // Fetch contacts from the server
     const fetchContacts = async () => {
         try {
-            const response = await axios.get("https://admin.emdcconference.com/api/contact");
+            const response = await axios.get("https://admin.ranmicon.com/api/contact");
             setContacts(response.data.data || []);
             setError("");
         } catch (err) {

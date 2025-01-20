@@ -72,7 +72,7 @@ function TermsConditions() {
                    
                    data.append('termsConditions',mainForm.termsConditions)
    
-                   const response = await axios.post('https://admin.emdcconference.com/api/termsConditions', data, {
+                   const response = await axios.post('https://admin.ranmicon.com/api/termsConditions', data, {
                        headers: { "Content-Type": "multipart/form-data" }
                    });
    

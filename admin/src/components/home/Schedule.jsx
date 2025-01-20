@@ -19,7 +19,7 @@ function Schedule() {
     // Fetch schedule data
     const fetchSchedule = async () => {
         try {
-            const response = await axios.get("https://admin.emdcconference.com/api/");
+            const response = await axios.get("https://admin.ranmicon.com/api/");
             const { day1, day2, day3 } = response.data;
             setScheduleForm({ day1, day2, day3 });
         } catch (error) {
@@ -57,7 +57,7 @@ function Schedule() {
 
     const handleDeleteEvent = async (day, id) => {
         try {
-            const response = await axios.delete(`https://admin.emdcconference.com/api/schedule/${day}/${id}`);
+            const response = await axios.delete(`https://admin.ranmicon.com/api/schedule/${day}/${id}`);
             if (response.status === 200) {
                 setScheduleForm((prev) => ({
                     ...prev,
@@ -80,7 +80,7 @@ function Schedule() {
                 list: scheduleForm[day].list
             });
             
-            const response = await axios.patch("https://admin.emdcconference.com/api/addschedule", {
+            const response = await axios.patch("https://admin.ranmicon.com/api/addschedule", {
                 day,
                 dayDate: scheduleForm[day].dayDate,
                 list: scheduleForm[day].list

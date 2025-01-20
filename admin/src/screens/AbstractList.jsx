@@ -9,7 +9,7 @@ const AbstractList = () => {
     // Fetch data from the API
     const fetchAbstractData = async () => {
         try {
-            const response = await axios.get('https://admin.emdcconference.com/api/allAbstract'); // Replace with your backend URL
+            const response = await axios.get('https://admin.ranmicon.com/api/allAbstract'); // Replace with your backend URL
             setAbstracts(response.data.abstracts || []);
         } catch (error) {
             console.error('Error fetching abstract data:', error);
@@ -55,7 +55,7 @@ const AbstractList = () => {
                                 <td>
                                     {abstract.attachFile ? (
                                         <a
-                                            href={`https://admin.emdcconference.com${abstract.attachFile}`}
+                                            href={`https://admin.ranmicon.com${abstract.attachFile}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >

@@ -18,7 +18,7 @@ const Accommodations = () => {
   // Fetch accommodations from API
   const fetchAccommodations = async () => {
     try {
-      const response = await axios.get('https://admin.emdcconference.com/api/getAccommodations');
+      const response = await axios.get('https://admin.ranmicon.com/api/getAccommodations');
       setAccommodations(response.data);
     } catch (error) {
       console.error('Error fetching accommodations:', error.message);
@@ -44,11 +44,11 @@ const Accommodations = () => {
     try {
       if (isEditing) {
         // Update accommodation
-        await axios.put(`https://admin.emdcconference.com/api/updateAccommodation/${editingId}`, formData);
+        await axios.put(`https://admin.ranmicon.com/api/updateAccommodation/${editingId}`, formData);
         setSuccess('Accommodation updated successfully');
       } else {
         // Add new accommodation
-        await axios.post('https://admin.emdcconference.com/api/addAccommodation', formData);
+        await axios.post('https://admin.ranmicon.com/api/addAccommodation', formData);
         setSuccess('Accommodation added successfully');
       }
 
@@ -67,7 +67,7 @@ const Accommodations = () => {
   // Handle delete accommodation
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://admin.emdcconference.com/api/deleteAccommodation/${id}`);
+      await axios.delete(`https://admin.ranmicon.com/api/deleteAccommodation/${id}`);
       setSuccess('Accommodation deleted successfully');
       fetchAccommodations(); // Refresh list
     } catch (error) {

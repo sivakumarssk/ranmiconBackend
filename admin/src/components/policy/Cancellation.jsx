@@ -72,7 +72,7 @@ function Cancellation() {
                 
                 data.append('cancellation',mainForm.cancellation)
 
-                const response = await axios.post('https://admin.emdcconference.com/api/cancellation', data, {
+                const response = await axios.post('https://admin.ranmicon.com/api/cancellation', data, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
 

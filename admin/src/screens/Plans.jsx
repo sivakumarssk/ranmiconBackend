@@ -23,8 +23,8 @@ const Plans = () => {
     // Fetch plans and participation types from the server
     const fetchData = async () => {
         try {
-            const plansResponse = await axios.get('https://admin.emdcconference.com/api/getPlans');
-            const participationResponse = await axios.get('https://admin.emdcconference.com/api/getparticipation');
+            const plansResponse = await axios.get('https://admin.ranmicon.com/api/getPlans');
+            const participationResponse = await axios.get('https://admin.ranmicon.com/api/getparticipation');
 
             
             setPlans(plansResponse.data);
@@ -78,7 +78,7 @@ const Plans = () => {
               
             } else {
                 // Create Plan
-                const response = await axios.post('https://admin.emdcconference.com/api/createPlan', {
+                const response = await axios.post('https://admin.ranmicon.com/api/createPlan', {
                     name: newPlan.name,
                     startDate: newPlan.startDate,
                     endDate: newPlan.endDate,
@@ -122,7 +122,7 @@ const Plans = () => {
     // Handle deleting a plan
     const handleDeletePlan = async (planId) => {
         try {
-            await axios.delete(`https://admin.emdcconference.com/api/deletePlan/${planId}`);
+            await axios.delete(`https://admin.ranmicon.com/api/deletePlan/${planId}`);
             setPlans(plans.filter((plan) => plan._id !== planId));
             setSuccess('Plan deleted successfully');
         } catch (err) {
@@ -133,7 +133,7 @@ const Plans = () => {
     // Handle creating a participation type
     const handleCreateParticipationType = async () => {
         try {
-            const response = await axios.post('https://admin.emdcconference.com/api/participationtypes', {
+            const response = await axios.post('https://admin.ranmicon.com/api/participationtypes', {
                 name: newParticipationType,
             });
 
@@ -156,7 +156,7 @@ const Plans = () => {
     // Handle deleting a participation type
     const handleDeleteParticipationType = async (id) => {
         try {
-            await axios.delete(`https://admin.emdcconference.com/api/deleteparticipation/${id}`);
+            await axios.delete(`https://admin.ranmicon.com/api/deleteparticipation/${id}`);
             setParticipationTypes(participationTypes.filter((type) => type._id !== id));
             setSuccess('Participation type deleted successfully');
         } catch (err) {

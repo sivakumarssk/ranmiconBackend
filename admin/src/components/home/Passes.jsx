@@ -17,7 +17,7 @@ function Passes() {
     // Fetch passes data
     const fetchPasses = async () => {
         try {
-            const response = await axios.get("https://admin.emdcconference.com/api/");
+            const response = await axios.get("https://admin.ranmicon.com/api/");
             const { pass1, pass2, pass3 } = response.data;
             setPassesForm({ pass1, pass2, pass3 });
         } catch (error) {
@@ -60,7 +60,7 @@ function Passes() {
             };
 
             try {
-                await axios.patch(`https://admin.emdcconference.com/api/passes`, {
+                await axios.patch(`https://admin.ranmicon.com/api/passes`, {
                     [pass]: [...updatedPasses, newPass]
                 });
 
@@ -82,7 +82,7 @@ function Passes() {
             lastPass.benifits.push(benefit.trim());
 
             try {
-                await axios.patch(`https://admin.emdcconference.com/api/passes`, {
+                await axios.patch(`https://admin.ranmicon.com/api/passes`, {
                     [pass]: updatedPasses
                 });
 
@@ -106,7 +106,7 @@ function Passes() {
     const handleDeleteBenefit = async (passType, passIndex, benefitIndex) => {
         try {
             const response = await axios.delete(
-                `https://admin.emdcconference.com/api/passes/${passType}/${benefitIndex}`
+                `https://admin.ranmicon.com/api/passes/${passType}/${benefitIndex}`
             );
             if (response.status === 200) {
                 setPassesForm((prev) => ({
@@ -129,7 +129,7 @@ function Passes() {
 
     const handleSubmit = async () => {
         try {
-            await axios.patch("https://admin.emdcconference.com/api/passes", passesForm, {
+            await axios.patch("https://admin.ranmicon.com/api/passes", passesForm, {
                 headers: { "Content-Type": "application/json" }
             });
             alert("Passes submitted successfully!");

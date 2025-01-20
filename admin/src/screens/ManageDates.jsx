@@ -27,7 +27,7 @@ function ManageDates() {
       return;
     }
     try {
-      const response = await axios.post('https://admin.emdcconference.com/api/addDates', { key, items });
+      const response = await axios.post('https://admin.ranmicon.com/api/addDates', { key, items });
       setDates(response.data.data.dates);
       setKey('');
       setItems([]);
@@ -45,7 +45,7 @@ function ManageDates() {
     }
     try {
       const item = { head, date };
-      const response = await axios.post('https://admin.emdcconference.com/api/addSingleDate', { key, item });
+      const response = await axios.post('https://admin.ranmicon.com/api/addSingleDate', { key, item });
       setDates(response.data.data.dates);
       setHead('');
       setDate('');
@@ -58,7 +58,7 @@ function ManageDates() {
 
   const handleDeleteItem = async (key, id) => {
     try {
-      await axios.delete(`https://admin.emdcconference.com/api/deleteDates/${id}`);
+      await axios.delete(`https://admin.ranmicon.com/api/deleteDates/${id}`);
       fetchDates();
       alert('Item deleted successfully');
     } catch (error) {
@@ -69,7 +69,7 @@ function ManageDates() {
 
   const handleDeleteKey = async (key) => {
     try {
-      await axios.delete(`https://admin.emdcconference.com/api/deleteKey/${key}`);
+      await axios.delete(`https://admin.ranmicon.com/api/deleteKey/${key}`);
       fetchDates();
       alert(`Key "${key}" deleted successfully`);
     } catch (error) {
@@ -81,7 +81,7 @@ function ManageDates() {
   const fetchDates = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('https://admin.emdcconference.com/api/getdates');
+      const response = await axios.get('https://admin.ranmicon.com/api/getdates');
       setDates(response.data.data);
     } catch (error) {
       console.error(error);

@@ -72,7 +72,7 @@ function Abstract() {
                 
                 data.append('abstract',mainForm.abstract)
 
-                const response = await axios.post('https://admin.emdcconference.com/api/guide-abstract', data, {
+                const response = await axios.post('https://admin.ranmicon.com/api/guide-abstract', data, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
 

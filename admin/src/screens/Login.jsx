@@ -12,7 +12,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://admin.emdcconference.com/api/login", { email, password });
+            const response = await axios.post("https://admin.ranmicon.com/api/login", { email, password });
 
             if (response.data.token) {
                 localStorage.setItem("authToken", response.data.token); // Save token in local storage
