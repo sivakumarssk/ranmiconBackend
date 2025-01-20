@@ -29,7 +29,8 @@ const createPlan = async (req, res) => {
   };
 
   const updatePlanPrices = async (req, res) => {
-    const { planId, prices } = req.body; // Expect prices as an array of { participationType: { _id, name }, price }
+    const { planId, name, startDate, endDate, prices } = req.body;
+    // `prices` is expected as an array of { participationType: { _id, name }, price }
 
     try {
         // Find the plan by ID
@@ -38,18 +39,34 @@ const createPlan = async (req, res) => {
             return res.status(404).json({ message: 'Plan not found' });
         }
 
-        // Map prices based on the participationType._id
-        const pricesMap = prices.reduce((acc, item) => {
-            acc[item.participationType._id] = item.price; // Use participationType._id
-            return acc;
-        }, {});
+        // Update name if provided
+        if (name !== undefined) {
+            plan.name = name;
+        }
 
-        // Update prices in the plan
-        plan.prices.forEach((item) => {
-            if (pricesMap[item.participationType.toString()] !== undefined) {
-                item.price = pricesMap[item.participationType.toString()];
-            }
-        });
+        // Update startDate if provided
+        if (startDate !== undefined) {
+            plan.startDate = new Date(startDate);
+        }
+
+        // Update endDate if provided
+        if (endDate !== undefined) {
+            plan.endDate = new Date(endDate);
+        }
+
+        // Update prices if provided
+        if (prices && Array.isArray(prices)) {
+            const pricesMap = prices.reduce((acc, item) => {
+                acc[item.participationType._id] = item.price;
+                return acc;
+            }, {});
+
+            plan.prices.forEach((item) => {
+                if (pricesMap[item.participationType.toString()] !== undefined) {
+                    item.price = pricesMap[item.participationType.toString()];
+                }
+            });
+        }
 
         plan.updatedAt = Date.now(); // Update the timestamp
         await plan.save(); // Save the updated plan

@@ -56,8 +56,11 @@ const Plans = () => {
             if (isEditing) {
                 // Update Plan
                 try {
-                    const response = await axios.put('https://admin.emdcconference.com/api/updatePlan', {
+                    const response = await axios.put('http://localhost:5000/api/updatePlan', {
                         planId: editingPlanId,
+                        name: newPlan.name,
+                        startDate: newPlan.startDate,
+                        endDate: newPlan.endDate,
                         prices: pricesArray,
                     });
                     setPlans(plans.map((p) => (p._id === editingPlanId ? response.data : p)));
@@ -218,21 +221,21 @@ const Plans = () => {
                     type="text"
                     placeholder="Plan Name"
                     value={newPlan.name}
-                    readOnly={isEditing}
+                    
                     onChange={(e) => setNewPlan({ ...newPlan, name: e.target.value })}
                 />
                 <input
                     type="date"
                     placeholder="Start Date"
                     value={newPlan.startDate?.split('T')[0]}
-                    readOnly={isEditing}
+                    
                     onChange={(e) => setNewPlan({ ...newPlan, startDate: e.target.value })}
                 />
                 <input
                     type="date"
                     placeholder="End Date"
                     value={newPlan.endDate?.split('T')[0]}
-                    readOnly={isEditing}
+                    
                     onChange={(e) => setNewPlan({ ...newPlan, endDate: e.target.value })}
                 />
                 <h4>Set Prices</h4>
